@@ -1,0 +1,66 @@
+<!-- templates/purchases.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Invex — Purchases</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="left"><a href="{{ url_for('dashboard') }}">← Invex</a></div>
+      <div class="right">
+        <a class="btn-logout" href="{{ url_for('logout') }}">Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="panel">
+      <h2>Purchase History</h2>
+
+      <form class="form-inline" action="{{ url_for('add_purchase') }}" method="POST">
+        <select name="prod_id" required>
+          <option value="">Select Product</option>
+          {% for p in products %}
+            <option value="{{ p['prod_id'] }}">{{ p['name'] }} (stock: {{ p['stock_qty'] }})</option>
+          {% endfor %}
+        </select>
+
+        <select name="supplier_id" required>
+          <option value="">Select Supplier</option>
+          {% for s in suppliers %}
+            <option value="{{ s['supplier_id'] }}">{{ s['name'] }}</option>
+          {% endfor %}
+        </select>
+
+        <input name="quantity" type="number" min="1" placeholder="Quantity" required>
+        <input name="date" type="date" placeholder="Date (optional)">
+        <button class="primary small" type="submit">Add Purchase</button>
+      </form>
+
+      <table class="table">
+        <thead><tr><th>ID</th><th>Product</th><th>Supplier</th><th>Qty</th><th>Date</th></tr></thead>
+        <tbody>
+          {% for p in purchases %}
+          <tr>
+            <td>{{ p['purchase_id'] }}</td>
+            <td>{{ p['product'] }}</td>
+            <td>{{ p['supplier'] }}</td>
+            <td>{{ p['quantity'] }}</td>
+            <td>{{ p['date'] }}</td>
+          </tr>
+          {% endfor %}
+          {% if purchases|length == 0 %}
+            <tr><td colspan="5">No purchases yet</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>
+
+

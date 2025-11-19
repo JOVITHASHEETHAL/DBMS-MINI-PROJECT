@@ -1,0 +1,61 @@
+<!-- templates/dashboard.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Invex — Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="left"><strong>Invex</strong></div>
+      <div class="right">
+        <span>Welcome, {{ admin }}</span>
+        <a class="btn-logout" href="{{ url_for('logout') }}">Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-grid">
+    <div class="card big" onclick="location.href='{{ url_for('products') }}'">
+      <h3>Products</h3>
+      <p class="stat">{{ total_products }}</p>
+    </div>
+
+    <div class="card big" onclick="location.href='{{ url_for('suppliers') }}'">
+      <h3>Suppliers</h3>
+      <p class="stat">{{ total_suppliers }}</p>
+    </div>
+
+    <div class="card big" onclick="location.href='{{ url_for('purchases') }}'">
+      <h3>Low Stock</h3>
+      <p class="stat">{{ low_stock_count }}</p>
+    </div>
+
+    <div class="card full">
+      <h3>Recent Purchases</h3>
+      <table class="table">
+        <thead><tr><th>ID</th><th>Product</th><th>Supplier</th><th>Qty</th><th>Date</th></tr></thead>
+        <tbody>
+          {% for r in recent_purchases %}
+          <tr>
+            <td>{{ r['purchase_id'] }}</td>
+            <td>{{ r['product'] }}</td>
+            <td>{{ r['supplier'] }}</td>
+            <td>{{ r['quantity'] }}</td>
+            <td>{{ r['date'] }}</td>
+          </tr>
+          {% endfor %}
+          {% if recent_purchases|length == 0 %}
+          <tr><td colspan="5">No recent purchases</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>
+
+

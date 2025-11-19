@@ -1,0 +1,41 @@
+<!-- templates/login.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Invex — Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="login-body">
+  <div class="bg-blob"></div>
+
+  <div class="center-wrap">
+    <div class="glass-card">
+      <div class="brand"><span class="dot"></span> INVEX</div>
+      <h2>Welcome to Invex</h2>
+      <p class="mini">Smart Inventory Management</p>
+
+      <form action="{{ url_for('login') }}" method="POST" class="form">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Enter username" required />
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter password" required />
+
+        <button type="submit" class="primary">Sign In</button>
+      </form>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-list">
+            {% for cat, msg in messages %}
+              <div class="flash {{ cat }}">{{ msg }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+</body>
+</html>

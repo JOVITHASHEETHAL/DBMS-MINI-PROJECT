@@ -1,0 +1,91 @@
+/* static/style.css */
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+:root{
+  --accent:#5a4bff;
+  --accent-dark:#4735d8;
+  --glass-bg: rgba(255,255,255,0.55);
+  --muted:#667085;
+}
+
+/* --- Global --- */
+*{box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;margin:0;background: linear-gradient(135deg,#dfe9ff 0%, #f8f2ff 100%);color:#111}
+
+/* background decorative */
+.bg-blob{
+  position:fixed; left:5%; right:5%; top:5%; bottom:5%;
+  border-radius:18px;
+  background: radial-gradient(circle at 20% 30%, rgba(122,97,255,0.35), transparent 20%),
+              radial-gradient(circle at 80% 70%, rgba(90,180,255,0.25), transparent 20%),
+              linear-gradient(120deg, #bfe1ff 0%, #c8b8ff 100%);
+  filter: blur(20px);
+  z-index:0;
+}
+
+/* center wrap */
+.center-wrap{position:relative;z-index:2;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:30px}
+
+/* glass card (login) */
+.glass-card{
+  width:380px;
+  background:var(--glass-bg);
+  border-radius:14px;
+  padding:30px;
+  box-shadow: 0 10px 30px rgba(15,23,42,0.12);
+  backdrop-filter: blur(6px) saturate(120%);
+  text-align:center;
+}
+.brand{font-weight:700;color:var(--accent);margin-bottom:10px;letter-spacing:1px}
+.brand .dot{display:inline-block;width:10px;height:10px;background:var(--accent);border-radius:50%;margin-right:8px;vertical-align:middle}
+h2{margin:6px 0 6px;font-size:20px}
+.mini{color:var(--muted);font-size:13px;margin-bottom:16px}
+
+/* form */
+.form{display:flex;flex-direction:column;gap:12px;text-align:left}
+.form label{font-size:13px;color:#333;margin-bottom:4px}
+.form input, .form select{padding:10px;border-radius:8px;border:1px solid rgba(15,23,42,0.06);font-size:14px}
+.primary{background:var(--accent);color:white;border:none;padding:10px;border-radius:8px;font-weight:600;cursor:pointer}
+.primary:hover{background:var(--accent-dark)}
+.flash-list{margin-top:12px}
+.flash{padding:8px;border-radius:8px;font-weight:600}
+.flash.success{background:rgba(16,185,129,0.08);color:#065f46}
+.flash.error{background:rgba(239,68,68,0.06);color:#991b1b}
+.flash.info{background:rgba(59,130,246,0.06);color:#063f8f}
+
+/* header / topbar */
+.topbar{background:transparent;padding:14px 0;position:sticky;top:0;z-index:3}
+.container{max-width:1100px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.left{font-weight:700;color:var(--accent)}
+.right{display:flex;gap:12px;align-items:center}
+.btn-logout{background:#fff;border:1px solid rgba(0,0,0,0.06);padding:6px 10px;border-radius:8px;color:var(--accent);text-decoration:none}
+
+/* layout */
+.main-grid{max-width:1100px;margin:20px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0 20px}
+.card{background:white;border-radius:12px;padding:18px;box-shadow:0 8px 24px rgba(15,23,42,0.06);cursor:pointer;transition:transform .15s}
+.card.big{display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.card.big h3{margin:0;color:var(--muted);font-weight:600}
+.card .stat{font-size:28px;font-weight:700;color:var(--accent);margin-top:8px}
+.card.full{grid-column:1/4}
+
+/* panel, forms and tables used in pages */
+.panel{background:white;border-radius:12px;padding:18px;box-shadow:0 8px 24px rgba(15,23,42,0.06)}
+.form-inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.form-inline input, .form-inline select{padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)}
+.small{padding:6px 10px;font-size:14px}
+.danger{background:#ff6b6b;color:white;border:none;padding:6px 8px;border-radius:6px}
+.muted{color:var(--muted);cursor:pointer}
+
+/* table */
+.table{width:100%;border-collapse:collapse;margin-top:10px}
+.table th, .table td{padding:10px;border-bottom:1px solid #f1f5f9;text-align:left}
+.table thead th{background:linear-gradient(90deg,var(--accent),var(--accent-dark));color:white;border:none}
+
+/* responsive */
+@media (max-width:900px){
+  .main-grid{grid-template-columns:1fr; padding:0 20px}
+  .glass-card{width:94%}
+  .form-inline{flex-direction:column}
+}
+
+

@@ -1,0 +1,74 @@
+<!-- templates/products.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INVEX — Products</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="left"><a href="{{ url_for('dashboard') }}" class="link-back">← INVEX</a></div>
+      <div class="right">
+        <a class="btn-logout" href="{{ url_for('logout') }}">Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="panel">
+      <h2>Products</h2>
+
+      <!-- Add Product Form -->
+      <form action="{{ url_for('add_product') }}" method="POST" class="form-inline">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="category" placeholder="Category">
+        <input type="text" name="price" placeholder="Price (e.g. 50 rupees per kg)" required>
+        <input type="number" name="stock_qty" placeholder="Stock" min="0" value="0" required>
+        <button class="primary small" type="submit">Add Product</button>
+      </form>
+
+      <!-- Products Table -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in products %}
+          <tr>
+            <td>{{ p['prod_id'] }}</td>
+            <td>{{ p['name'] }}</td>
+            <td>{{ p['category'] }}</td>
+            <td>{{ p['price'] }}</td>
+            <td>{{ p['stock_qty'] }}</td>
+            <td>
+              <form style="display:inline" method="post" action="{{ url_for('delete_product', prod_id=p['prod_id']) }}">
+                <button class="danger small" type="submit">Delete</button>
+              </form>
+              <details style="display:inline;">
+                <summary class="muted small">Edit</summary>
+                <form method="post" action="{{ url_for('update_product', prod_id=p['prod_id']) }}" class="inline-edit">
+                  <input name="name" value="{{ p['name'] }}" required>
+                  <input name="category" value="{{ p['category'] }}">
+                  <input name="price" value="{{ p['price'] }}" type="text">
+                  <input name="stock_qty" value="{{ p['stock_qty'] }}" type="number" min="0">
+                  <button class="primary small" type="submit">Save</button>
+                </form>
+              </details>
+            </td>
+          </tr>
+          {% endfor %}
+          {% if products|length == 0 %}
+          <tr><td colspan="6" style="text-align:center;">No products yet</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>
+

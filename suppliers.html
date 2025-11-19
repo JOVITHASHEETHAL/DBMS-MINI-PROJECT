@@ -1,0 +1,56 @@
+<!-- templates/suppliers.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Invex — Suppliers</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="left"><a href="{{ url_for('dashboard') }}">← Invex</a></div>
+      <div class="right">
+        <a class="btn-logout" href="{{ url_for('logout') }}">Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="panel">
+      <h2>Suppliers</h2>
+
+      <form class="form-inline" action="{{ url_for('add_supplier') }}" method="POST">
+        <input name="name" placeholder="Supplier Name" required>
+        <input name="contact" placeholder="Contact">
+        <button class="primary small" type="submit">Add Supplier</button>
+      </form>
+
+      <table class="table">
+        <thead><tr><th>ID</th><th>Name</th><th>Contact</th><th>Actions</th></tr></thead>
+        <tbody>
+          {% for s in suppliers %}
+          <tr>
+            <td>{{ s['supplier_id'] }}</td>
+            <td>{{ s['name'] }}</td>
+            <td>{{ s['contact'] }}</td>
+            <td>
+              <form method="post" action="{{ url_for('delete_supplier', supplier_id=s['supplier_id']) }}">
+                <button class="danger small" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+          {% if suppliers|length == 0 %}
+            <tr><td colspan="4">No suppliers yet</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>
+
+
+
